@@ -42,7 +42,7 @@ class FileRenamer:
 
         previous_date = "YYYYMMDD"
         for file in self.files:
-            if os.path.isfile(f"{self.path}/{file}"):
+            if os.path.isfile(f"{self.path}/{file}") and f"{self.path}/{file}".endswith(ext):
                 date = self.get_date(file)
                 if date != previous_date:
                     previous_date = date
