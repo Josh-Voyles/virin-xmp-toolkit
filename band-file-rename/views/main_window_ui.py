@@ -13,10 +13,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(778, 376)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.Preferred,
-            QtWidgets.QSizePolicy.Policy.Preferred,
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
@@ -27,15 +24,10 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet("")
         MainWindow.setTabShape(QtWidgets.QTabWidget.TabShape.Rounded)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.Expanding,
-            QtWidgets.QSizePolicy.Policy.Expanding,
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            self.centralwidget.sizePolicy().hasHeightForWidth()
-        )
+        sizePolicy.setHeightForWidth(self.centralwidget.sizePolicy().hasHeightForWidth())
         self.centralwidget.setSizePolicy(sizePolicy)
         self.centralwidget.setMinimumSize(QtCore.QSize(380, 305))
         self.centralwidget.setStyleSheet("")
@@ -48,39 +40,33 @@ class Ui_MainWindow(object):
         self.sidePanel.setEnabled(True)
         self.sidePanel.setMinimumSize(QtCore.QSize(130, 300))
         self.sidePanel.setBaseSize(QtCore.QSize(130, 0))
-        self.sidePanel.setStyleSheet(
-            "QWidget {\n"
-            "    background-color: rgb(173, 149, 129);\n"
-            '    font: 57 14pt "Yrsa Medium";\n'
-            "}\n"
-            "\n"
-            "QPushButton {\n"
-            "    text-align: center;\n"
-            "    height: 30px;\n"
-            "    border: none;\n"
-            "}\n"
-            "QPushButton:checked {\n"
-            " color: rgb(0, 82, 155);\n"
-            "font-weight: bold;\n"
-            "\n"
-            "}\n"
-            "\n"
-            "QPushButton:hover {\n"
-            "    color: rgb(177, 65, 56);\n"
-            "}"
-        )
+        self.sidePanel.setStyleSheet("QWidget {\n"
+"    background-color: rgb(173, 149, 129);\n"
+"    font: 57 14pt \"Yrsa Medium\";\n"
+"}\n"
+"\n"
+"QPushButton {\n"
+"    text-align: center;\n"
+"    height: 30px;\n"
+"    border: none;\n"
+"}\n"
+"QPushButton:checked {\n"
+" color: rgb(0, 82, 155);\n"
+"font-weight: bold;\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    color: rgb(177, 65, 56);\n"
+"}")
         self.sidePanel.setObjectName("sidePanel")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.sidePanel)
-        self.verticalLayout_2.setSizeConstraint(
-            QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint
-        )
+        self.verticalLayout_2.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint)
         self.verticalLayout_2.setContentsMargins(10, 20, 10, 40)
         self.verticalLayout_2.setSpacing(40)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.logoLabel = QtWidgets.QLabel(parent=self.sidePanel)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.logoLabel.sizePolicy().hasHeightForWidth())
@@ -88,17 +74,13 @@ class Ui_MainWindow(object):
         self.logoLabel.setMaximumSize(QtCore.QSize(130, 90))
         self.logoLabel.setText("")
         self.logoLabel.setTextFormat(QtCore.Qt.TextFormat.AutoText)
-        self.logoLabel.setPixmap(
-            QtGui.QPixmap("images/US_Air_Force_Logo_Solid_Colour.svg")
-        )
+        self.logoLabel.setPixmap(QtGui.QPixmap("resources/images/US_Air_Force_Logo_Solid_Colour.svg"))
         self.logoLabel.setScaledContents(True)
         self.logoLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.logoLabel.setObjectName("logoLabel")
         self.verticalLayout_2.addWidget(self.logoLabel)
         self.verticalButtonLayout = QtWidgets.QVBoxLayout()
-        self.verticalButtonLayout.setSizeConstraint(
-            QtWidgets.QLayout.SizeConstraint.SetMinimumSize
-        )
+        self.verticalButtonLayout.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetMinimumSize)
         self.verticalButtonLayout.setSpacing(20)
         self.verticalButtonLayout.setObjectName("verticalButtonLayout")
         self.pushButton = QtWidgets.QPushButton(parent=self.sidePanel)
@@ -126,9 +108,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.quitButton)
         self.horizontalLayout.addWidget(self.sidePanel)
         self.mainMenu = QtWidgets.QWidget(parent=self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.mainMenu.sizePolicy().hasHeightForWidth())
@@ -140,9 +120,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.headerFirstColumnLayoutV = QtWidgets.QVBoxLayout()
-        self.headerFirstColumnLayoutV.setSizeConstraint(
-            QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint
-        )
+        self.headerFirstColumnLayoutV.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint)
         self.headerFirstColumnLayoutV.setContentsMargins(-1, 20, -1, 10)
         self.headerFirstColumnLayoutV.setSpacing(10)
         self.headerFirstColumnLayoutV.setObjectName("headerFirstColumnLayoutV")
@@ -164,9 +142,7 @@ class Ui_MainWindow(object):
         self.fileOpenLayout.setContentsMargins(20, -1, 20, -1)
         self.fileOpenLayout.setObjectName("fileOpenLayout")
         self.openButton = QtWidgets.QPushButton(parent=self.mainMenu)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Fixed
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.openButton.sizePolicy().hasHeightForWidth())
@@ -174,9 +150,7 @@ class Ui_MainWindow(object):
         self.openButton.setObjectName("openButton")
         self.fileOpenLayout.addWidget(self.openButton)
         self.pathLabel = QtWidgets.QLabel(parent=self.mainMenu)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Fixed
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.pathLabel.sizePolicy().hasHeightForWidth())
@@ -191,31 +165,21 @@ class Ui_MainWindow(object):
         self.headerFirstColumnLayoutV.addLayout(self.fileOpenLayout)
         self.verticalLayout.addLayout(self.headerFirstColumnLayoutV)
         self.stackedWidget = QtWidgets.QStackedWidget(parent=self.mainMenu)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.MinimumExpanding,
-            QtWidgets.QSizePolicy.Policy.MinimumExpanding,
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.MinimumExpanding, QtWidgets.QSizePolicy.Policy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            self.stackedWidget.sizePolicy().hasHeightForWidth()
-        )
+        sizePolicy.setHeightForWidth(self.stackedWidget.sizePolicy().hasHeightForWidth())
         self.stackedWidget.setSizePolicy(sizePolicy)
         self.stackedWidget.setMaximumSize(QtCore.QSize(650, 750))
         self.stackedWidget.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.ArrowCursor))
-        self.stackedWidget.setContextMenuPolicy(
-            QtCore.Qt.ContextMenuPolicy.DefaultContextMenu
-        )
+        self.stackedWidget.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.DefaultContextMenu)
         self.stackedWidget.setStatusTip("")
         self.stackedWidget.setStyleSheet("")
         self.stackedWidget.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.stackedWidget.setObjectName("stackedWidget")
         self.filePage = QtWidgets.QWidget()
         self.filePage.setEnabled(True)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.Expanding,
-            QtWidgets.QSizePolicy.Policy.Expanding,
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.filePage.sizePolicy().hasHeightForWidth())
@@ -229,59 +193,40 @@ class Ui_MainWindow(object):
         self.mainFilenameLayoutH.setSpacing(6)
         self.mainFilenameLayoutH.setObjectName("mainFilenameLayoutH")
         self.filenameFirstColumnLayoutV = QtWidgets.QVBoxLayout()
-        self.filenameFirstColumnLayoutV.setSizeConstraint(
-            QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint
-        )
+        self.filenameFirstColumnLayoutV.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint)
         self.filenameFirstColumnLayoutV.setContentsMargins(-1, -1, 0, -1)
         self.filenameFirstColumnLayoutV.setSpacing(0)
         self.filenameFirstColumnLayoutV.setObjectName("filenameFirstColumnLayoutV")
         self.filenameHorizontalLayout = QtWidgets.QHBoxLayout()
-        self.filenameHorizontalLayout.setContentsMargins(50, -1, 100, -1)
+        self.filenameHorizontalLayout.setContentsMargins(50, 75, 100, -1)
         self.filenameHorizontalLayout.setSpacing(0)
         self.filenameHorizontalLayout.setObjectName("filenameHorizontalLayout")
         self.dateOverrideCheckBox = QtWidgets.QCheckBox(parent=self.filePage)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Fixed
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            self.dateOverrideCheckBox.sizePolicy().hasHeightForWidth()
-        )
+        sizePolicy.setHeightForWidth(self.dateOverrideCheckBox.sizePolicy().hasHeightForWidth())
         self.dateOverrideCheckBox.setSizePolicy(sizePolicy)
         self.dateOverrideCheckBox.setMinimumSize(QtCore.QSize(150, 0))
         self.dateOverrideCheckBox.setAcceptDrops(False)
-        self.dateOverrideCheckBox.setLayoutDirection(
-            QtCore.Qt.LayoutDirection.RightToLeft
-        )
+        self.dateOverrideCheckBox.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
         self.dateOverrideCheckBox.setObjectName("dateOverrideCheckBox")
         self.filenameHorizontalLayout.addWidget(self.dateOverrideCheckBox)
-        spacerItem = QtWidgets.QSpacerItem(
-            40,
-            20,
-            QtWidgets.QSizePolicy.Policy.Expanding,
-            QtWidgets.QSizePolicy.Policy.Minimum,
-        )
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.filenameHorizontalLayout.addItem(spacerItem)
         self.dateEdit = QtWidgets.QLineEdit(parent=self.filePage)
         self.dateEdit.setEnabled(False)
         self.dateEdit.setMinimumSize(QtCore.QSize(0, 0))
-        self.dateEdit.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.dateEdit.setMaximumSize(QtCore.QSize(90, 16777215))
         self.dateEdit.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
         self.dateEdit.setAutoFillBackground(False)
-        self.dateEdit.setAlignment(
-            QtCore.Qt.AlignmentFlag.AlignRight
-            | QtCore.Qt.AlignmentFlag.AlignTrailing
-            | QtCore.Qt.AlignmentFlag.AlignVCenter
-        )
+        self.dateEdit.setInputMask("")
+        self.dateEdit.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.dateEdit.setClearButtonEnabled(False)
         self.dateEdit.setObjectName("dateEdit")
         self.filenameHorizontalLayout.addWidget(self.dateEdit)
         self.virinLabel = QtWidgets.QLabel(parent=self.filePage)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.MinimumExpanding,
-            QtWidgets.QSizePolicy.Policy.Preferred,
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.MinimumExpanding, QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.virinLabel.sizePolicy().hasHeightForWidth())
@@ -290,67 +235,50 @@ class Ui_MainWindow(object):
         self.virinLabel.setObjectName("virinLabel")
         self.filenameHorizontalLayout.addWidget(self.virinLabel)
         self.shotEdit = QtWidgets.QLineEdit(parent=self.filePage)
-        self.shotEdit.setMaximumSize(QtCore.QSize(50, 16777215))
+        self.shotEdit.setMaximumSize(QtCore.QSize(60, 16777215))
         self.shotEdit.setMouseTracking(True)
+        self.shotEdit.setInputMask("")
         self.shotEdit.setCursorPosition(0)
-        self.shotEdit.setAlignment(
-            QtCore.Qt.AlignmentFlag.AlignRight
-            | QtCore.Qt.AlignmentFlag.AlignTrailing
-            | QtCore.Qt.AlignmentFlag.AlignVCenter
-        )
+        self.shotEdit.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.shotEdit.setObjectName("shotEdit")
         self.filenameHorizontalLayout.addWidget(self.shotEdit)
         self.seqEdit = QtWidgets.QLineEdit(parent=self.filePage)
-        self.seqEdit.setMaximumSize(QtCore.QSize(75, 16777215))
+        self.seqEdit.setMaximumSize(QtCore.QSize(60, 16777215))
         self.seqEdit.setMouseTracking(True)
+        self.seqEdit.setInputMask("")
         self.seqEdit.setFrame(True)
         self.seqEdit.setEchoMode(QtWidgets.QLineEdit.EchoMode.Normal)
         self.seqEdit.setCursorPosition(0)
-        self.seqEdit.setAlignment(
-            QtCore.Qt.AlignmentFlag.AlignLeading
-            | QtCore.Qt.AlignmentFlag.AlignLeft
-            | QtCore.Qt.AlignmentFlag.AlignVCenter
-        )
+        self.seqEdit.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.seqEdit.setCursorMoveStyle(QtCore.Qt.CursorMoveStyle.LogicalMoveStyle)
         self.seqEdit.setClearButtonEnabled(False)
         self.seqEdit.setObjectName("seqEdit")
         self.filenameHorizontalLayout.addWidget(self.seqEdit)
         self.filenameFirstColumnLayoutV.addLayout(self.filenameHorizontalLayout)
         self.filenameHorizontalLayout3 = QtWidgets.QHBoxLayout()
-        self.filenameHorizontalLayout3.setContentsMargins(-1, -1, 100, 100)
+        self.filenameHorizontalLayout3.setContentsMargins(-1, -1, 100, 75)
         self.filenameHorizontalLayout3.setSpacing(20)
         self.filenameHorizontalLayout3.setObjectName("filenameHorizontalLayout3")
         self.fileFormatLabel = QtWidgets.QLabel(parent=self.filePage)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Fixed
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Maximum, QtWidgets.QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            self.fileFormatLabel.sizePolicy().hasHeightForWidth()
-        )
+        sizePolicy.setHeightForWidth(self.fileFormatLabel.sizePolicy().hasHeightForWidth())
         self.fileFormatLabel.setSizePolicy(sizePolicy)
         self.fileFormatLabel.setMinimumSize(QtCore.QSize(150, 0))
-        self.fileFormatLabel.setAlignment(
-            QtCore.Qt.AlignmentFlag.AlignRight
-            | QtCore.Qt.AlignmentFlag.AlignTrailing
-            | QtCore.Qt.AlignmentFlag.AlignVCenter
-        )
+        self.fileFormatLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight|QtCore.Qt.AlignmentFlag.AlignTrailing|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.fileFormatLabel.setObjectName("fileFormatLabel")
         self.filenameHorizontalLayout3.addWidget(self.fileFormatLabel)
         self.fileFormatComboBox = QtWidgets.QComboBox(parent=self.filePage)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            self.fileFormatComboBox.sizePolicy().hasHeightForWidth()
-        )
+        sizePolicy.setHeightForWidth(self.fileFormatComboBox.sizePolicy().hasHeightForWidth())
         self.fileFormatComboBox.setSizePolicy(sizePolicy)
         self.fileFormatComboBox.setMinimumSize(QtCore.QSize(70, 0))
         self.fileFormatComboBox.setMaximumSize(QtCore.QSize(70, 16777215))
         self.fileFormatComboBox.setObjectName("fileFormatComboBox")
+        self.fileFormatComboBox.addItem("")
         self.fileFormatComboBox.addItem("")
         self.fileFormatComboBox.addItem("")
         self.fileFormatComboBox.addItem("")
@@ -385,9 +313,10 @@ class Ui_MainWindow(object):
         self.undoButton.setObjectName("undoButton")
         self.filenameHorizontalLayout3.addWidget(self.undoButton)
         self.renameButton = QtWidgets.QPushButton(parent=self.filePage)
-        self.renameButton.setStyleSheet(
-            "QPushButton {\n" "    background-color: rgb(246, 97, 81)\n" "}\n" ""
-        )
+        self.renameButton.setStyleSheet("QPushButton {\n"
+"    background-color: rgb(246, 97, 81)\n"
+"}\n"
+"")
         self.renameButton.setObjectName("renameButton")
         self.filenameHorizontalLayout3.addWidget(self.renameButton)
         self.filenameFirstColumnLayoutV.addLayout(self.filenameHorizontalLayout3)
@@ -395,10 +324,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addLayout(self.mainFilenameLayoutH)
         self.stackedWidget.addWidget(self.filePage)
         self.metaPage = QtWidgets.QWidget()
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.Expanding,
-            QtWidgets.QSizePolicy.Policy.Expanding,
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.metaPage.sizePolicy().hasHeightForWidth())
@@ -415,16 +341,11 @@ class Ui_MainWindow(object):
         self.metaScrollArea.setObjectName("metaScrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
         self.scrollAreaWidgetContents.setEnabled(True)
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 603, 362))
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.Expanding,
-            QtWidgets.QSizePolicy.Policy.Expanding,
-        )
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 630, 362))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            self.scrollAreaWidgetContents.sizePolicy().hasHeightForWidth()
-        )
+        sizePolicy.setHeightForWidth(self.scrollAreaWidgetContents.sizePolicy().hasHeightForWidth())
         self.scrollAreaWidgetContents.setSizePolicy(sizePolicy)
         self.scrollAreaWidgetContents.setMinimumSize(QtCore.QSize(0, 0))
         self.scrollAreaWidgetContents.setMouseTracking(False)
@@ -434,19 +355,13 @@ class Ui_MainWindow(object):
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.fileFormatLayout = QtWidgets.QHBoxLayout()
-        self.fileFormatLayout.setSizeConstraint(
-            QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint
-        )
+        self.fileFormatLayout.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint)
         self.fileFormatLayout.setContentsMargins(245, 0, 20, 0)
         self.fileFormatLayout.setObjectName("fileFormatLayout")
-        self.metaFileFormatLabel = QtWidgets.QLabel(
-            parent=self.scrollAreaWidgetContents
-        )
+        self.metaFileFormatLabel = QtWidgets.QLabel(parent=self.scrollAreaWidgetContents)
         self.metaFileFormatLabel.setObjectName("metaFileFormatLabel")
         self.fileFormatLayout.addWidget(self.metaFileFormatLabel)
-        self.metaFileFormatComboBox = QtWidgets.QComboBox(
-            parent=self.scrollAreaWidgetContents
-        )
+        self.metaFileFormatComboBox = QtWidgets.QComboBox(parent=self.scrollAreaWidgetContents)
         self.metaFileFormatComboBox.setObjectName("metaFileFormatComboBox")
         self.metaFileFormatComboBox.addItem("")
         self.metaFileFormatComboBox.addItem("")
@@ -513,9 +428,7 @@ class Ui_MainWindow(object):
         self.descriptionLabel.setMinimumSize(QtCore.QSize(125, 0))
         self.descriptionLabel.setObjectName("descriptionLabel")
         self.descriptionLayout.addWidget(self.descriptionLabel)
-        self.descriptionEdit = QtWidgets.QPlainTextEdit(
-            parent=self.scrollAreaWidgetContents
-        )
+        self.descriptionEdit = QtWidgets.QPlainTextEdit(parent=self.scrollAreaWidgetContents)
         self.descriptionEdit.setObjectName("descriptionEdit")
         self.descriptionLayout.addWidget(self.descriptionEdit)
         self.verticalLayout_3.addLayout(self.descriptionLayout)
@@ -585,9 +498,10 @@ class Ui_MainWindow(object):
         self.metaButtonLayout.addWidget(self.clearButton)
         self.writeButton = QtWidgets.QPushButton(parent=self.scrollAreaWidgetContents)
         self.writeButton.setMaximumSize(QtCore.QSize(50, 16777215))
-        self.writeButton.setStyleSheet(
-            "QPushButton {\n" "    background-color: rgb(246, 97, 81)\n" "}\n" ""
-        )
+        self.writeButton.setStyleSheet("QPushButton {\n"
+"    background-color: rgb(246, 97, 81)\n"
+"}\n"
+"")
         self.writeButton.setObjectName("writeButton")
         self.metaButtonLayout.addWidget(self.writeButton)
         self.verticalLayout_3.addLayout(self.metaButtonLayout)
@@ -595,10 +509,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.metaScrollArea)
         self.stackedWidget.addWidget(self.metaPage)
         self.aiPage = QtWidgets.QWidget()
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Policy.Expanding,
-            QtWidgets.QSizePolicy.Policy.Expanding,
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.aiPage.sizePolicy().hasHeightForWidth())
@@ -611,7 +522,7 @@ class Ui_MainWindow(object):
         self.aiScrollArea.setWidgetResizable(True)
         self.aiScrollArea.setObjectName("aiScrollArea")
         self.aiScrollContents = QtWidgets.QWidget()
-        self.aiScrollContents.setGeometry(QtCore.QRect(0, 0, 582, 130))
+        self.aiScrollContents.setGeometry(QtCore.QRect(0, 0, 644, 271))
         self.aiScrollContents.setObjectName("aiScrollContents")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.aiScrollContents)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
@@ -625,10 +536,7 @@ class Ui_MainWindow(object):
         self.aiInputBoxEdit.setObjectName("aiInputBoxEdit")
         self.aiHorizontalLayout1.addWidget(self.aiInputBoxEdit)
         self.aiOutputBox = QtWidgets.QPlainTextEdit(parent=self.aiScrollContents)
-        self.aiOutputBox.setTextInteractionFlags(
-            QtCore.Qt.TextInteractionFlag.TextSelectableByKeyboard
-            | QtCore.Qt.TextInteractionFlag.TextSelectableByMouse
-        )
+        self.aiOutputBox.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextSelectableByKeyboard|QtCore.Qt.TextInteractionFlag.TextSelectableByMouse)
         self.aiOutputBox.setObjectName("aiOutputBox")
         self.aiHorizontalLayout1.addWidget(self.aiOutputBox)
         self.aiVerticalLayout.addLayout(self.aiHorizontalLayout1)
@@ -638,12 +546,7 @@ class Ui_MainWindow(object):
         self.aiResetButton = QtWidgets.QPushButton(parent=self.aiScrollContents)
         self.aiResetButton.setObjectName("aiResetButton")
         self.aiHorizontalLayout2.addWidget(self.aiResetButton)
-        spacerItem1 = QtWidgets.QSpacerItem(
-            20,
-            20,
-            QtWidgets.QSizePolicy.Policy.Fixed,
-            QtWidgets.QSizePolicy.Policy.Minimum,
-        )
+        spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Minimum)
         self.aiHorizontalLayout2.addItem(spacerItem1)
         self.aiSubmitButton = QtWidgets.QPushButton(parent=self.aiScrollContents)
         self.aiSubmitButton.setObjectName("aiSubmitButton")
@@ -659,7 +562,8 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.stackedWidget.setCurrentIndex(0)
-        self.quitButton.clicked.connect(MainWindow.close)  # type: ignore
+        self.quitButton.clicked.connect(MainWindow.close) # type: ignore
+        self.dateOverrideCheckBox.clicked['bool'].connect(self.dateEdit.setEnabled) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -669,15 +573,12 @@ class Ui_MainWindow(object):
         self.metaButton.setText(_translate("MainWindow", "Metadata"))
         self.aiButton.setText(_translate("MainWindow", "AI Caption"))
         self.quitButton.setText(_translate("MainWindow", "Quit"))
-        self.virinExiftoolLabel.setText(_translate("MainWindow", "VIRIN Exiftool"))
+        self.virinExiftoolLabel.setText(_translate("MainWindow", "VIRIN XMP Tool"))
         self.openButton.setText(_translate("MainWindow", "Open"))
         self.dateOverrideCheckBox.setText(_translate("MainWindow", "Date Override"))
-        self.dateEdit.setInputMask(_translate("MainWindow", "99999999"))
         self.dateEdit.setPlaceholderText(_translate("MainWindow", "YYYYMMDD"))
         self.virinLabel.setText(_translate("MainWindow", "-F-F3963-"))
-        self.shotEdit.setInputMask(_translate("MainWindow", "9"))
         self.shotEdit.setPlaceholderText(_translate("MainWindow", "Shot #"))
-        self.seqEdit.setInputMask(_translate("MainWindow", "999"))
         self.seqEdit.setPlaceholderText(_translate("MainWindow", "Seq #"))
         self.fileFormatLabel.setText(_translate("MainWindow", "File Format:"))
         self.fileFormatComboBox.setItemText(0, _translate("MainWindow", "mov"))
@@ -695,17 +596,18 @@ class Ui_MainWindow(object):
         self.fileFormatComboBox.setItemText(12, _translate("MainWindow", "heic"))
         self.fileFormatComboBox.setItemText(13, _translate("MainWindow", "heif"))
         self.fileFormatComboBox.setItemText(14, _translate("MainWindow", "jpeg"))
-        self.fileFormatComboBox.setItemText(15, _translate("MainWindow", "m4a"))
-        self.fileFormatComboBox.setItemText(16, _translate("MainWindow", "mkv"))
-        self.fileFormatComboBox.setItemText(17, _translate("MainWindow", "nef"))
-        self.fileFormatComboBox.setItemText(18, _translate("MainWindow", "png"))
-        self.fileFormatComboBox.setItemText(19, _translate("MainWindow", "tiff"))
-        self.fileFormatComboBox.setItemText(20, _translate("MainWindow", "raw"))
-        self.fileFormatComboBox.setItemText(21, _translate("MainWindow", "wma"))
-        self.fileFormatComboBox.setItemText(22, _translate("MainWindow", "wmv"))
-        self.fileFormatComboBox.setItemText(23, _translate("MainWindow", "srf"))
-        self.fileFormatComboBox.setItemText(24, _translate("MainWindow", "sr2"))
-        self.fileFormatComboBox.setItemText(25, _translate("MainWindow", "srw"))
+        self.fileFormatComboBox.setItemText(15, _translate("MainWindow", "jpg"))
+        self.fileFormatComboBox.setItemText(16, _translate("MainWindow", "m4a"))
+        self.fileFormatComboBox.setItemText(17, _translate("MainWindow", "mkv"))
+        self.fileFormatComboBox.setItemText(18, _translate("MainWindow", "nef"))
+        self.fileFormatComboBox.setItemText(19, _translate("MainWindow", "png"))
+        self.fileFormatComboBox.setItemText(20, _translate("MainWindow", "tiff"))
+        self.fileFormatComboBox.setItemText(21, _translate("MainWindow", "raw"))
+        self.fileFormatComboBox.setItemText(22, _translate("MainWindow", "wma"))
+        self.fileFormatComboBox.setItemText(23, _translate("MainWindow", "wmv"))
+        self.fileFormatComboBox.setItemText(24, _translate("MainWindow", "srf"))
+        self.fileFormatComboBox.setItemText(25, _translate("MainWindow", "sr2"))
+        self.fileFormatComboBox.setItemText(26, _translate("MainWindow", "srw"))
         self.resetButton.setText(_translate("MainWindow", "Reset"))
         self.undoButton.setText(_translate("MainWindow", "Undo"))
         self.renameButton.setText(_translate("MainWindow", "Rename"))
@@ -752,11 +654,6 @@ class Ui_MainWindow(object):
         self.saveButton.setText(_translate("MainWindow", "Save"))
         self.clearButton.setText(_translate("MainWindow", "Clear"))
         self.writeButton.setText(_translate("MainWindow", "Write"))
-        self.aiInputBoxEdit.setPlaceholderText(
-            _translate(
-                "MainWindow",
-                "**Provide general description to generate caption. Provide as much details as possible.**",
-            )
-        )
+        self.aiInputBoxEdit.setPlaceholderText(_translate("MainWindow", "**Provide general description to generate caption. Provide as much details as possible.**"))
         self.aiResetButton.setText(_translate("MainWindow", "Reset"))
         self.aiSubmitButton.setText(_translate("MainWindow", "Submit"))

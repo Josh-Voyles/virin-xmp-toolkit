@@ -8,7 +8,7 @@ from views.main_window import MainWindow
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    path = "images/US_Air_Force_Logo_Solid_Colour.svg"
+    path = "resources/images/US_Air_Force_Logo_Solid_Colour.svg"
     if getattr(sys, "frozen", False):
         resolved_path = os.path.abspath(os.path.join(sys._MEIPASS, path))
     else:
