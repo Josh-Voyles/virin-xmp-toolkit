@@ -1,21 +1,34 @@
 import os
+import subprocess
+import shlex
 
-PATH_TO_TEST_FILES = "/home/joshvoyles/Documents/band-file-rename/band-file-rename/tests/test_data/"
 
 class MetaTool:
-            
-    def write_meta_data(self, ext="", metadata_options="", path = ".") -> None:
+
+    def write_meta_data(self, path, selected_extension, metadata_options="") -> None:
         """Triggers exiftool to write metadata"""
         arguements = [
             "exiftool",
             "-overwrite_original",
-            f"-ext {ext}",
+            f"-ext {selected_extension}",
             metadata_options,
             path,  # need to handle paths on windows differently
         ]
         command = " ".join(arguements)
         os.system(command)
 
+    def retreive_metadata(self, path, selected_extension) -> dict:
+        var = ""
+        path = os.path.abspath(path)
+        dir = os.listdir(path)
+        for file in dir:
+            _, ext = os.path.splitext(file)
+            if ext[1:].lower() == selected_extension:
+                var = subprocess.check_output(
+                    f"exiftool {shlex.quote(os.path.join(path, file))}"
+                )
+                break
+        print(var)
 
     # This function may be used in future if we need to append date
     # def get_date(self, file):
@@ -28,11 +41,6 @@ class MetaTool:
     #     print("M Time: ",time.strftime("%Y-%m-%dT%H:%M:%S", m_data))
     #     return time.strftime("%Y-%m-%d %H:%M:%S", m_data)
 
-
-def main():
-    tool = MetaTool()
-    tool.write_meta_data('mp4', path=PATH_TO_TEST_FILES)
-    
     # Possible metadata options
     # f"-creator={repr(creator)}",
     # f"-title={repr(title)}",
@@ -45,7 +53,3 @@ def main():
     # f"-country={repr(country)}",
     # "-copyright='Public Domain'",
     # "-rights='Public Domain'",
-
-
-if __name__ == "__main__":
-    main()

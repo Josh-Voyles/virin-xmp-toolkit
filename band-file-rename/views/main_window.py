@@ -8,6 +8,7 @@ from PyQt6.QtWidgets import QFileDialog, QMainWindow, QMessageBox
 from PyQt6.QtGui import QRegularExpressionValidator
 from PyQt6.QtCore import Q_RETURN_ARG, QRegularExpression
 from models.file_rename import FileRenamer
+from models.meta_edit import MetaTool
 from views.main_window_ui import Ui_MainWindow
 
 FILENAME_PAGE_INDEX = 0
@@ -24,6 +25,7 @@ class MainWindow(QMainWindow):
         self.current_window_index = 0
         self.file_path = ""
         self.fr = FileRenamer()
+        self.meta = MetaTool()
 
         self.setWindowTitle("virin exiftool")
 
@@ -57,6 +59,7 @@ class MainWindow(QMainWindow):
         path = folder_chooser.getExistingDirectory(None, "Select a Folder", "")
         self.file_path = path
         self.ui.pathLabel.setText(path)
+        # self.meta.retreive_metadata(path, "png")  # temp fixed entension
 
     def display_filename_page(self):
         """Displays filename edit page"""
@@ -72,6 +75,9 @@ class MainWindow(QMainWindow):
         """Displays ai edit page"""
         self.ui.stackedWidget.setCurrentIndex(AI_CAPTION_PAGE_INDEX)
         self.current_window_index = AI_CAPTION_PAGE_INDEX
+
+    def display_current_metadata(self):
+        pass
 
     def get_file_format(self):
         if self.current_window_index == FILENAME_PAGE_INDEX:
@@ -94,12 +100,16 @@ class MainWindow(QMainWindow):
             shot = int(self.ui.shotEdit.text())
             seq = int(self.ui.seqEdit.text())
             ext = self.ui.fileFormatComboBox.currentText()
-            self.fr.rename_all_files(self.file_path, ext, date, shot, seq)
+            QMessageBox.warning(
+                self,
+                "Notification",
+                self.fr.rename_all_files(self.file_path, ext, date, shot, seq),
+            )
         else:
             self.display_empty_path_warning()
 
     def undo_rename(self):
-        self.fr.undo_rename()
+        QMessageBox.warning(self, "Notification", self.fr.undo_rename())
 
     def display_empty_path_warning(self):
         if not self.file_path:
