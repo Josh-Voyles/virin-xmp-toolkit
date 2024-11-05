@@ -92,9 +92,8 @@ class FileRenamer:
                 except FileNotFoundError:
                     notification += f"File not found: {old_filename}\n"
                 except PermissionError:
-                    print(
-                        "Permission Denied: {old_filename}\n",
-                    )
+                    notification += f"Permission Denied: {old_filename}\n"
+
                 except IsADirectoryError:
                     notification += f"Error: Is a directory: {old_filename}\n"
                 except FileExistsError:
