@@ -3,7 +3,6 @@ Description
     
 """
 
-import re, os, sys
 from PyQt6.QtWidgets import QFileDialog, QMainWindow, QMessageBox
 from PyQt6.QtGui import QRegularExpressionValidator
 from PyQt6.QtCore import Q_RETURN_ARG, QRegularExpression
@@ -27,7 +26,7 @@ class MainWindow(QMainWindow):
         self.fr = FileRenamer()
         self.meta = MetaTool()
 
-        self.setWindowTitle("virin exiftool")
+        self.setWindowTitle("VIRIN XMP Toolkit")
 
         # filename rename input validation
         date_regex = QRegularExpression(
@@ -50,6 +49,9 @@ class MainWindow(QMainWindow):
         self.ui.renameButton.clicked.connect(self.rename_files)
         self.ui.undoButton.clicked.connect(self.undo_rename)
         self.ui.resetButton.clicked.connect(self.clear_all_filename_data)
+        self.ui.loadButton.clicked.connect(self.load_metadata)
+        self.ui.clearButton.clicked.connect(self.clear_metadata_fields)
+        self.ui.writeButton.clicked.connect(self.write_metadata_to_files)
 
     # Functions listed in priority top down
     def open_folder_chooser(self):
@@ -76,8 +78,53 @@ class MainWindow(QMainWindow):
         self.ui.stackedWidget.setCurrentIndex(AI_CAPTION_PAGE_INDEX)
         self.current_window_index = AI_CAPTION_PAGE_INDEX
 
-    def display_current_metadata(self):
-        pass
+    def write_metadata_to_files(self):
+        process_keywords = self.ui.keywordEdit.text().replace(",", " ").split(" ")
+        process_keywords = [keyword for keyword in process_keywords if keyword != ""]
+        metadata = {
+            "creator": self.ui.creatorEdit.text(),
+            "writer": self.ui.writerEdit.text(),
+            "title": self.ui.titleEdit.text(),
+            "description": self.ui.descriptionEdit.toPlainText(),
+            "keywords": process_keywords,
+            "headline": self.ui.titleEdit.text(),
+            "city": self.ui.cityEdit.text(),
+            "country": self.ui.countryEdit.text(),
+            "state": self.ui.stateEdit.text(),
+            "copyright": self.ui.copyrightEdit.text(),
+            "rights": self.ui.copyrightEdit.text(),
+        }
+        QMessageBox.information(
+            self,
+            "Notification",
+            self.meta.write_metadata(self.file_path, self.get_file_format(), metadata),
+        )
+
+    def clear_metadata_fields(self):
+        self.ui.creatorEdit.setText("USAF Band Production")
+        self.ui.writerEdit.setText("")
+        self.ui.descriptionEdit.setPlainText("")
+        self.ui.titleEdit.setText("")
+        self.ui.keywordEdit.setText("USAFBand")
+        self.ui.cityEdit.setText("")
+        self.ui.countryEdit.setText("")
+        self.ui.stateEdit.setText("")
+        self.ui.copyrightEdit.setText("Public Domain")
+
+    def load_metadata(self):
+        """'XMP:Creator', 'XMP:Writer', 'XMP:Description', 'XMP:Title', 'XMP:Keywords'
+        'XMP:City', 'XMP:Country', 'XMP:Headline', 'XMP:State', 'XMP:Copyright'
+        """
+        metadata = self.meta.retreive_metadata(self.file_path, self.get_file_format())
+        self.ui.creatorEdit.setText(metadata["Creator"])
+        self.ui.writerEdit.setText(metadata["Writer"])
+        self.ui.descriptionEdit.setPlainText(metadata["Description"])
+        self.ui.titleEdit.setText(metadata["Title"])
+        self.ui.keywordEdit.setText(metadata["Keywords"])
+        self.ui.cityEdit.setText(metadata["City"])
+        self.ui.countryEdit.setText(metadata["Country"])
+        self.ui.stateEdit.setText(metadata["State"])
+        self.ui.copyrightEdit.setText(metadata["Copyright"])
 
     def get_file_format(self):
         if self.current_window_index == FILENAME_PAGE_INDEX:
@@ -100,7 +147,7 @@ class MainWindow(QMainWindow):
             shot = int(self.ui.shotEdit.text())
             seq = int(self.ui.seqEdit.text())
             ext = self.ui.fileFormatComboBox.currentText()
-            QMessageBox.warning(
+            QMessageBox.information(
                 self,
                 "Notification",
                 self.fr.rename_all_files(self.file_path, ext, date, shot, seq),
