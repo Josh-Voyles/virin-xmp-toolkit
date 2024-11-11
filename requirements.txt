@@ -1,3 +1,4 @@
 pytest
 PyExifTool
 PyQt6
+ollama
