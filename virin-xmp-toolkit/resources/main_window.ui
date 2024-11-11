@@ -53,6 +53,7 @@ QMainWindow {
 }
 QWidget {
     background-color:#ececec;
+	border: none;
 }
 QPushButton, QToolButton, QCommandLinkButton{
     padding: 0 5px 0 5px;
@@ -691,7 +692,7 @@ QPushButton:hover {
         <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>0</number>
+        <number>2</number>
        </property>
        <property name="topMargin">
         <number>0</number>
@@ -750,10 +751,10 @@ QPushButton:hover {
          <item>
           <layout class="QHBoxLayout" name="fileOpenLayout">
            <property name="leftMargin">
-            <number>20</number>
+            <number>35</number>
            </property>
            <property name="rightMargin">
-            <number>20</number>
+            <number>33</number>
            </property>
            <item>
             <widget class="QPushButton" name="openButton">
@@ -813,6 +814,9 @@ QPushButton:hover {
              <property name="textFormat">
               <enum>Qt::TextFormat::PlainText</enum>
              </property>
+             <property name="scaledContents">
+              <bool>false</bool>
+             </property>
              <property name="alignment">
               <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
              </property>
@@ -820,7 +824,7 @@ QPushButton:hover {
               <bool>false</bool>
              </property>
              <property name="textInteractionFlags">
-              <set>Qt::TextInteractionFlag::TextEditorInteraction</set>
+              <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextEditable|Qt::TextInteractionFlag::TextEditorInteraction|Qt::TextInteractionFlag::TextSelectableByKeyboard|Qt::TextInteractionFlag::TextSelectableByMouse</set>
              </property>
             </widget>
            </item>
@@ -881,6 +885,9 @@ QPushButton:hover {
             <width>646</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
@@ -1309,6 +1316,9 @@ QPushButton:hover {
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <property name="spacing">
             <number>0</number>
@@ -1343,8 +1353,8 @@ QPushButton:hover {
               <property name="geometry">
                <rect>
                 <x>0</x>
-                <y>-149</y>
-                <width>634</width>
+                <y>0</y>
+                <width>636</width>
                 <height>435</height>
                </rect>
               </property>
@@ -1912,6 +1922,27 @@ QPushButton:hover {
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>646</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>646</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <stylestrategy>PreferDefault</stylestrategy>
+            <kerning>true</kerning>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <property name="leftMargin">
             <number>0</number>
@@ -1935,8 +1966,8 @@ QPushButton:hover {
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>644</width>
-                <height>286</height>
+                <width>646</width>
+                <height>288</height>
                </rect>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_3">
