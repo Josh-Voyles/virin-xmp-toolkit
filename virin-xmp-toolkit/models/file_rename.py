@@ -122,7 +122,9 @@ class FileRenamer:
             Handles various exceptions and appends errors to return string.
         """
         # init starting variables
-        notification, fixed_date, previous_date = EMPTY_STRING
+        notification = EMPTY_STRING
+        fixed_date = EMPTY_STRING
+        previous_date = EMPTY_STRING
         single_write_action = {}
         path = os.path.abspath(path)
         sequence_number = start_seq
