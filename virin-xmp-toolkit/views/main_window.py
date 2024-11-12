@@ -18,7 +18,6 @@ from models.meta_edit import MetaTool
 from models.ai_backend import VIRINAI
 from views.main_window_ui import Ui_MainWindow
 import os
-import sys
 
 FILENAME_PAGE_INDEX = 0
 METADATA_PAGE_INDEX = 1
@@ -34,7 +33,7 @@ class MainWindow(QMainWindow):
     MainWindow class that manages the user interface for renaming files and editing metadata.
     """
 
-    def __init__(self):
+    def __init__(self, resolved_app_path):
         """
         Initializes the main window and sets up the user interface components,
         validators, and signals for various buttons.
@@ -48,14 +47,15 @@ class MainWindow(QMainWindow):
         # dependencies
         self.fr = FileRenamer()
         self.meta = MetaTool()
-        self.ai = VIRINAI()
+        self.ai = VIRINAI(resolved_app_path)
 
         self.setWindowTitle("VIRIN XMP Toolkit")
-        # PATH_TO_DETAILS = os.path.abspath( os.path.join(sys._MEIPASS, "docs", "details.txt"))
+        # must reset logo to gui for pyinstaller executables
         self.ui.logoLabel.setPixmap(
             QtGui.QPixmap(
                 os.path.join(
-                    sys._MEIPASS, "resources/images/US_Air_Force_Logo_Solid_Colour.svg"
+                    resolved_app_path,
+                    "resources/images/US_Air_Force_Logo_Solid_Colour.svg",
                 )
             )
         )
