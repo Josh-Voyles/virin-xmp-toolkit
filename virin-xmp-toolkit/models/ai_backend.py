@@ -10,6 +10,10 @@ It loads some pre-prompts to make photo/video captioning easier.
 
 from collections.abc import Iterator
 import ollama
+import os
+
+PATH_TO_PREPROMPT = ["docs", "pre_prompt.txt"]
+PATH_TO_DETAILS = ["docs", "details.txt"]
 
 
 class VIRINAI:
@@ -17,17 +21,20 @@ class VIRINAI:
     VIRINAI class provides methods for initializing and interacting with the Ollama 3.18B model
     """
 
-    def __init__(self) -> None:
+    def __init__(self, resolved_app_path) -> None:
         """
         Creates a chat session using the 'llama3.1' model.
         Sends a user's pre-prompt instructions to the model.
         """
+        self.resolved_app_path = resolved_app_path
         _ = ollama.chat(
             model="llama3.1",
             messages=[
                 {
                     "role": "user",
-                    "content": self._get_instructions("docs/pre_prompt.txt"),
+                    "content": self._get_instructions(
+                        os.path.join(resolved_app_path, *PATH_TO_PREPROMPT)
+                    ),
                 }
             ],
             stream=True,
@@ -51,7 +58,13 @@ class VIRINAI:
             stream: A stream response from the 'ollama.chat' function
                     using the 'llama3.1' model.
         """
-        details = self._get_instructions("docs/details.txt") + "\n" + details
+        details = (
+            self._get_instructions(
+                os.path.join(self.resolved_app_path, *PATH_TO_DETAILS)
+            )
+            + "\n"
+            + details
+        )
 
         stream = ollama.chat(
             model="llama3.1",

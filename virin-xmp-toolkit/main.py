@@ -17,19 +17,19 @@ from PyQt6 import QtGui
 from views.main_window import MainWindow
 
 
+def get_application_path() -> str:
+    """Function to resolve application path when pyinstaller used"""
+    if getattr(sys, "frozen", False):
+        return os.path.abspath(sys._MEIPASS)
+    return os.getcwd()
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     AIR_FORCE_LOGO = "resources/images/US_Air_Force_Logo_Solid_Colour.svg"
-    if getattr(sys, "frozen", False):
-        resolved_AIR_FORCE_LOGO = os.path.abspath(
-            os.path.join(sys._MEIPASS, AIR_FORCE_LOGO)
-        )
-    else:
-        resolved_AIR_FORCE_LOGO = os.path.abspath(
-            os.path.join(os.getcwd(), AIR_FORCE_LOGO)
-        )
-    app.setWindowIcon(QtGui.QIcon(resolved_AIR_FORCE_LOGO))
+    resolved_app_path = get_application_path()
+    app.setWindowIcon(QtGui.QIcon(os.path.join(resolved_app_path, AIR_FORCE_LOGO)))
 
-    window = MainWindow()
+    window = MainWindow(resolved_app_path)
     window.show()
     sys.exit(app.exec())

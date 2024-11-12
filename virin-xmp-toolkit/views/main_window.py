@@ -10,13 +10,14 @@ This module tries the front end gui to backend for virin xmp toolkit.
 """
 
 from PyQt6.QtWidgets import QFileDialog, QMainWindow, QMessageBox
+from PyQt6 import QtGui
 from PyQt6.QtGui import QRegularExpressionValidator
 from PyQt6.QtCore import QCoreApplication, QRegularExpression
 from models.file_rename import FileRenamer
 from models.meta_edit import MetaTool
 from models.ai_backend import VIRINAI
 from views.main_window_ui import Ui_MainWindow
-
+import os
 
 FILENAME_PAGE_INDEX = 0
 METADATA_PAGE_INDEX = 1
@@ -32,7 +33,7 @@ class MainWindow(QMainWindow):
     MainWindow class that manages the user interface for renaming files and editing metadata.
     """
 
-    def __init__(self):
+    def __init__(self, resolved_app_path):
         """
         Initializes the main window and sets up the user interface components,
         validators, and signals for various buttons.
@@ -46,10 +47,18 @@ class MainWindow(QMainWindow):
         # dependencies
         self.fr = FileRenamer()
         self.meta = MetaTool()
-        self.ai = VIRINAI()
+        self.ai = VIRINAI(resolved_app_path)
 
         self.setWindowTitle("VIRIN XMP Toolkit")
-
+        # must reset logo to gui for pyinstaller executables
+        self.ui.logoLabel.setPixmap(
+            QtGui.QPixmap(
+                os.path.join(
+                    resolved_app_path,
+                    "resources/images/US_Air_Force_Logo_Solid_Colour.svg",
+                )
+            )
+        )
         # filename rename input validation
         date_regex = QRegularExpression(
             r"(20|19)\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$"
