@@ -10,13 +10,15 @@ This module tries the front end gui to backend for virin xmp toolkit.
 """
 
 from PyQt6.QtWidgets import QFileDialog, QMainWindow, QMessageBox
+from PyQt6 import QtGui
 from PyQt6.QtGui import QRegularExpressionValidator
 from PyQt6.QtCore import QCoreApplication, QRegularExpression
 from models.file_rename import FileRenamer
 from models.meta_edit import MetaTool
 from models.ai_backend import VIRINAI
 from views.main_window_ui import Ui_MainWindow
-
+import os
+import sys
 
 FILENAME_PAGE_INDEX = 0
 METADATA_PAGE_INDEX = 1
@@ -49,7 +51,14 @@ class MainWindow(QMainWindow):
         self.ai = VIRINAI()
 
         self.setWindowTitle("VIRIN XMP Toolkit")
-
+        # PATH_TO_DETAILS = os.path.abspath( os.path.join(sys._MEIPASS, "docs", "details.txt"))
+        self.ui.logoLabel.setPixmap(
+            QtGui.QPixmap(
+                os.path.join(
+                    sys._MEIPASS, "resources/images/US_Air_Force_Logo_Solid_Colour.svg"
+                )
+            )
+        )
         # filename rename input validation
         date_regex = QRegularExpression(
             r"(20|19)\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$"

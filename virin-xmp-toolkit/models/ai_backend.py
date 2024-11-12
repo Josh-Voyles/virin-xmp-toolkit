@@ -10,6 +10,13 @@ It loads some pre-prompts to make photo/video captioning easier.
 
 from collections.abc import Iterator
 import ollama
+import os
+import sys
+
+PATH_TO_PREPROMPT = os.path.abspath(
+    os.path.join(sys._MEIPASS, "docs", "pre_prompt.txt")
+)
+PATH_TO_DETAILS = os.path.abspath(os.path.join(sys._MEIPASS, "docs", "details.txt"))
 
 
 class VIRINAI:
@@ -27,7 +34,7 @@ class VIRINAI:
             messages=[
                 {
                     "role": "user",
-                    "content": self._get_instructions("docs/pre_prompt.txt"),
+                    "content": self._get_instructions(PATH_TO_PREPROMPT),
                 }
             ],
             stream=True,
@@ -51,7 +58,7 @@ class VIRINAI:
             stream: A stream response from the 'ollama.chat' function
                     using the 'llama3.1' model.
         """
-        details = self._get_instructions("docs/details.txt") + "\n" + details
+        details = self._get_instructions(PATH_TO_DETAILS) + "\n" + details
 
         stream = ollama.chat(
             model="llama3.1",
