@@ -10,6 +10,12 @@ virin-xmp-toolkit requires Phil Harvey's exiftool and Ollama.
 
 However, the installer will install these dependencies and Homebrew if not already installed.
 
+**WARNING:**
+
+This installer will install a folder on your desktop with an executable inside.
+You may need to **right-click** on the executable and select **open** to get the app to launch.
+I could not get a .app bundle to work with the exiftool dependency using pyinstallar nor py2app.
+
 ```bash
 curl -sSL https://raw.githubusercontent.com/josh-voyles/virin-xmp-toolkit/main/install.sh | bash
 ```
@@ -37,6 +43,8 @@ The teams visual ID is currently hard-coded into the program since this tool is 
 
 A common mistake will be to not select the correct file format.
 
+<img width="893" alt="xmp-toolkit-rename" src="https://github.com/user-attachments/assets/76e30114-a95a-43d7-8f5c-7712f1602193">
+
 ### Functions
 
 - (Folder) - Select the parent directory of the files you want to batch process.
@@ -49,6 +57,8 @@ A common mistake will be to not select the correct file format.
 - (Seq#) - Starting sequence number. Normally you will choose 1.
 
 ## Metadata
+
+<img width="893" alt="xmp-toolkit-meta" src="https://github.com/user-attachments/assets/0dda94c9-1834-40c6-bc5f-91fa53f7c11f">
 
 ### Functions
 
@@ -66,6 +76,8 @@ A common mistake will be to not select the correct file format.
 - (Write) - Writes metadata to all files with chosen format based on input fields.
 
 ## AI caption
+
+<img width="893" alt="xmp-toolkit-ai" src="https://github.com/user-attachments/assets/cdb47bcd-c6b0-41e3-aba8-84c96116a36a">
 
 - (Left Box) - Write a description of your video shoot or photo shoot. Provide many details.
 - (Right Box) - Ollama will spit out a basic caption to help you with writing yours.
