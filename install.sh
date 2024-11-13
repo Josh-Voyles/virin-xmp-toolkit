@@ -39,7 +39,7 @@ install_github_release() {
 
   # Unzip the downloaded file
   echo "Unzipping release..."
-  unzip "virin-xmp-toolkit.zip" -d /Users/$USER/Desktop/virin-xmp-toolkit
+  unzip -o "virin-xmp-toolkit.zip" -d /Users/$USER/Desktop/virin-xmp-toolkit
 
   # Clean up the zip file
   rm "virin-xmp-toolkit.zip"
