@@ -32,6 +32,12 @@ ollama pull llama3.1
 install_github_release() {
   local repo=$1
   local download_url=https://github.com/${repo}/releases/download/v0.1.0-beta/virin-xmp-toolkit.zip
+  local target_folder=/Users/$USER/Desktop/virin-xmp-toolkit
+
+  if [ -d ${target_folder} ]; then
+    echo "Deleting old target folder..."
+    rm -rf ${target_folder}
+  fi
 
   # Download the release zip
   echo "Downloading latest release from ${repo}..."
@@ -39,7 +45,7 @@ install_github_release() {
 
   # Unzip the downloaded file
   echo "Unzipping release..."
-  unzip -o "virin-xmp-toolkit.zip" -d /Users/$USER/Desktop/virin-xmp-toolkit
+  unzip -o "virin-xmp-toolkit.zip" -d ${target_folder}
 
   # Clean up the zip file
   rm "virin-xmp-toolkit.zip"
