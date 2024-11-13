@@ -31,8 +31,7 @@ ollama pull llama3.1
 # Function to download and install the latest GitHub release
 install_github_release() {
   local repo=$1
-  local download_url=https://github.com/${repo}/release/latest/download/virin-xmp-toolkit.zip
-  local temp_dir="/tmp/${repo}-${release_tag}"
+  local download_url=https://github.com/${repo}/releases/download/latest/v0.1.0-beta/virin-xmp-toolkit.zip
 
   # Download the release zip
   echo "Downloading latest release from ${repo}..."
@@ -40,20 +39,13 @@ install_github_release() {
 
   # Unzip the downloaded file
   echo "Unzipping release..."
-  unzip -q "virin-xmp-toolkit.zip"
+  unzip -o "virin-xmp-toolkit.zip" -d "Users/$USER/Desktop/virin-xmp-toolkit"
 
-  # Move the unzipped files to the Applications folder
-  echo "Moving files to /Applications..."
-  mv "virin-xmp-toolkit" "~/Desktop"
-
-  # Clean up the temp files
+  # Clean up the zip file
   rm "virin-xmp-toolkit.zip"
 }
 
 GITHUB_REPO="josh-voyles/virin-xmp-toolkit"
-
-# Get the latest release tag from GitHub
-LATEST_RELEASE_TAG=$(get_latest_release "$GITHUB_REPO")
 
 # Install the latest release from GitHub
 install_github_release "$GITHUB_REPO"
