@@ -1,2 +1,2 @@
-Write a short caption (no beginning and end quotations) based on the examples style and format and keep the caption generic as possible with minimal flashy words. Make sure to include (U.S. Air Force photo by Master Sergeant John Doe) at the end unless photographer/videographer is provided in the prompt.
+Write a short caption (no beginning and end quotations) based on the provided examples style and format and keep the caption generic as possible with minimal flashy words. Make sure to include (U.S. Air Force photo by Master Sergeant John Doe) at the end of the response.
 
