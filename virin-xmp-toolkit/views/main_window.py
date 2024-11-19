@@ -12,13 +12,15 @@ This module tries the front end gui to backend for virin xmp toolkit.
 from PyQt6.QtWidgets import QFileDialog, QMainWindow, QMessageBox
 from PyQt6 import QtGui
 from PyQt6.QtGui import QRegularExpressionValidator
-from PyQt6.QtCore import QCoreApplication, QRegularExpression
+from PyQt6.QtCore import QCoreApplication, QRegularExpression, QThread, pyqtSignal
 from models.file_rename import FileRenamer
 from models.meta_edit import MetaTool
 from models.ai_backend import VIRINAI
 from views.main_window_ui import Ui_MainWindow
 import os
 
+SOFTWARE_VERSION = "0.3.0"
+APPLICATION_TITLE = "VIRIN XMP Toolkit"
 FILENAME_PAGE_INDEX = 0
 METADATA_PAGE_INDEX = 1
 AI_CAPTION_PAGE_INDEX = 2
@@ -26,6 +28,21 @@ EMPTY_STRING = ""
 DEFAULT_CREATOR = "USAF Band Production"
 DEFAULT_KEYWORD = "USAFBand"
 PUBLIC_DOMAIN_COPYRIGHT = "Public Domain"
+
+
+class MessageWorker(QThread):
+    """Worker thread for displaying message boxes"""
+
+    finished = pyqtSignal(str, str, str)
+
+    def __init__(self, title, message, message_type):
+        super().__init__()
+        self.title = title
+        self.message = message
+        self.message_type = message_type
+
+    def run(self):
+        self.finished.emit(self.title, self.message, self.message_type)
 
 
 class MainWindow(QMainWindow):
@@ -49,7 +66,7 @@ class MainWindow(QMainWindow):
         self.meta = MetaTool()
         self.ai = VIRINAI(resolved_app_path)
 
-        self.setWindowTitle("VIRIN XMP Toolkit")
+        self.setWindowTitle(APPLICATION_TITLE + " " + SOFTWARE_VERSION)
         # must reset logo to gui for pyinstaller executables
         self.ui.logoLabel.setPixmap(
             QtGui.QPixmap(
@@ -59,20 +76,25 @@ class MainWindow(QMainWindow):
                 )
             )
         )
-        # filename rename input validation
+
+        self.message_thread = None
+        self._setup_validators()
+        self._connect_buttons()
+
+    def _setup_validators(self):
+        """Set up input validators"""
         date_regex = QRegularExpression(
             r"(20|19)\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$"
         )
         shot_regex = QRegularExpression(r"\d$")
         seq_regex = QRegularExpression(r"\d{3}$")
-        date_validator = QRegularExpressionValidator(date_regex)
-        shot_validator = QRegularExpressionValidator(shot_regex)
-        seq_validator = QRegularExpressionValidator(seq_regex)
-        self.ui.dateEdit.setValidator(date_validator)
-        self.ui.shotEdit.setValidator(shot_validator)
-        self.ui.seqEdit.setValidator(seq_validator)
 
-        # connect buttons to functions
+        self.ui.dateEdit.setValidator(QRegularExpressionValidator(date_regex))
+        self.ui.shotEdit.setValidator(QRegularExpressionValidator(shot_regex))
+        self.ui.seqEdit.setValidator(QRegularExpressionValidator(seq_regex))
+
+    def _connect_buttons(self):
+        """Connect all buttons to their slots"""
         self.ui.pushButton.clicked.connect(self.display_filename_page)
         self.ui.metaButton.clicked.connect(self.display_metadata_page)
         self.ui.aiButton.clicked.connect(self.display_ai_page)
@@ -87,16 +109,31 @@ class MainWindow(QMainWindow):
         self.ui.aiSubmitButton.clicked.connect(self.prompt_ai)
         self.ui.aiResetButton.clicked.connect(self.clear_ai_fields)
 
+    def show_threaded_message(self, title, message, message_type):
+        """Display message box in a seperate thread"""
+        if self.message_thread is not None and self.message_thread.isRunning():
+            self.message_thread.wait()
+        self.message_thread = MessageWorker(title, message, message_type)
+        self.message_thread.finished.connect(self._show_message_box)
+        self.message_thread.start()
+
+    def _show_message_box(self, title, message, message_type):
+        """Slot for displaying actual message box"""
+        if message_type == "warning":
+            QMessageBox.warning(self, title, message)
+        else:
+            QMessageBox.information(self, title, message)
+
     def _display_empty_shot_seq_warning(self):
         """Displays a warning message if shot or sequence numbers are not provided."""
         message = "Please enter a shot and sequence number"
-        QMessageBox.warning(self, "Number Error", message)
+        self.show_threaded_message("Number Error", message, "warning")
 
     def _display_empty_path_warning(self):
         """Displays a warning message if no file path is selected."""
         if not self.file_path:
             message = "Please choose a file path"
-            QMessageBox.warning(self, "Path Error", message)
+            self.show_threaded_message("Path Error", message, "warning")
 
     def _get_file_format(self):
         """Retrieves the current file format based on the selected page."""
@@ -138,10 +175,10 @@ class MainWindow(QMainWindow):
                 shot = int(self.ui.shotEdit.text())
                 seq = int(self.ui.seqEdit.text())
                 ext = self.ui.fileFormatComboBox.currentText()
-                QMessageBox.information(
-                    self,
+                self.show_threaded_message(
                     "Notification",
                     self.fr.rename_all_files(self.file_path, ext, date, shot, seq),
+                    "information",
                 )
             else:
                 self._display_empty_shot_seq_warning()
@@ -162,7 +199,7 @@ class MainWindow(QMainWindow):
 
     def undo_rename(self):
         """Undoes the last renaming operation."""
-        QMessageBox.information(self, "Notification", self.fr.undo_rename())
+        self.show_threaded_message("Notification", self.fr.undo_rename(), "information")
 
     def load_metadata(self):
         """Loads existing metadata from the files in the selected path into the input fields."""
@@ -210,10 +247,10 @@ class MainWindow(QMainWindow):
             "copyright": self.ui.copyrightEdit.text(),
             "rights": self.ui.copyrightEdit.text(),
         }
-        QMessageBox.information(
-            self,
+        self.show_threaded_message(
             "Notification",
             self.meta.write_metadata(self.file_path, self._get_file_format(), metadata),
+            "information",
         )
 
     def prompt_ai(self):
