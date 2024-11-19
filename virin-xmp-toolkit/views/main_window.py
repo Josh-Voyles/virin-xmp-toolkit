@@ -30,19 +30,25 @@ DEFAULT_KEYWORD = "USAFBand"
 PUBLIC_DOMAIN_COPYRIGHT = "Public Domain"
 
 
-class MessageWorker(QThread):
-    """Worker thread for displaying message boxes"""
+class AICaptionWorker(QThread):
+    """Worker thread to update AI caption"""
 
-    finished = pyqtSignal(str, str, str)
+    text_update = pyqtSignal(str)
 
-    def __init__(self, title, message, message_type):
+    def __init__(self, ai_instance, input_text):
         super().__init__()
-        self.title = title
-        self.message = message
-        self.message_type = message_type
+        self.ai = ai_instance
+        self.input_text = input_text
 
-    def run(self):
-        self.finished.emit(self.title, self.message, self.message_type)
+    def run(self) -> None:
+        try:
+            stream = self.ai.get_caption(self.input_text)
+            text = ""
+            for chunk in stream:
+                text += chunk["message"]["content"]
+                self.text_update.emit(text)
+        except Exception as e:
+            self.text_update.emit(f"Error generating caption: {str(e)}")
 
 
 class MainWindow(QMainWindow):
@@ -77,7 +83,6 @@ class MainWindow(QMainWindow):
             )
         )
 
-        self.message_thread = None
         self._setup_validators()
         self._connect_buttons()
 
@@ -109,14 +114,6 @@ class MainWindow(QMainWindow):
         self.ui.aiSubmitButton.clicked.connect(self.prompt_ai)
         self.ui.aiResetButton.clicked.connect(self.clear_ai_fields)
 
-    def show_threaded_message(self, title, message, message_type):
-        """Display message box in a seperate thread"""
-        if self.message_thread is not None and self.message_thread.isRunning():
-            self.message_thread.wait()
-        self.message_thread = MessageWorker(title, message, message_type)
-        self.message_thread.finished.connect(self._show_message_box)
-        self.message_thread.start()
-
     def _show_message_box(self, title, message, message_type):
         """Slot for displaying actual message box"""
         if message_type == "warning":
@@ -127,13 +124,13 @@ class MainWindow(QMainWindow):
     def _display_empty_shot_seq_warning(self):
         """Displays a warning message if shot or sequence numbers are not provided."""
         message = "Please enter a shot and sequence number"
-        self.show_threaded_message("Number Error", message, "warning")
+        self._show_message_box("Number Error", "warning", message)
 
     def _display_empty_path_warning(self):
         """Displays a warning message if no file path is selected."""
         if not self.file_path:
             message = "Please choose a file path"
-            self.show_threaded_message("Path Error", message, "warning")
+            self._show_message_box("Path Error", "warning", message)
 
     def _get_file_format(self):
         """Retrieves the current file format based on the selected page."""
@@ -175,10 +172,10 @@ class MainWindow(QMainWindow):
                 shot = int(self.ui.shotEdit.text())
                 seq = int(self.ui.seqEdit.text())
                 ext = self.ui.fileFormatComboBox.currentText()
-                self.show_threaded_message(
+                self._show_message_box(
                     "Notification",
-                    self.fr.rename_all_files(self.file_path, ext, date, shot, seq),
                     "information",
+                    self.fr.rename_all_files(self.file_path, ext, date, shot, seq),
                 )
             else:
                 self._display_empty_shot_seq_warning()
@@ -199,7 +196,7 @@ class MainWindow(QMainWindow):
 
     def undo_rename(self):
         """Undoes the last renaming operation."""
-        self.show_threaded_message("Notification", self.fr.undo_rename(), "information")
+        self._show_message_box("Notification", "information", self.fr.undo_rename())
 
     def load_metadata(self):
         """Loads existing metadata from the files in the selected path into the input fields."""
@@ -247,10 +244,10 @@ class MainWindow(QMainWindow):
             "copyright": self.ui.copyrightEdit.text(),
             "rights": self.ui.copyrightEdit.text(),
         }
-        self.show_threaded_message(
+        self._show_message_box(
             "Notification",
-            self.meta.write_metadata(self.file_path, self._get_file_format(), metadata),
             "information",
+            self.meta.write_metadata(self.file_path, self._get_file_format(), metadata),
         )
 
     def prompt_ai(self):
@@ -258,12 +255,11 @@ class MainWindow(QMainWindow):
         Prompts the AI to generate a caption based on the input text and displays
         the generated caption in the AI output box.
         """
-        stream = self.ai.get_caption(self.ui.aiInputBoxEdit.toPlainText())
-        text = ""
-        for chunk in stream:
-            text += chunk["message"]["content"]
-            self.ui.aiOutputBox.setPlainText(text)
-            QCoreApplication.processEvents()  # to get word by word stream of text
+        self.ui.aiOutputBox.setPlainText("")
+        input_text = self.ui.aiInputBoxEdit.toPlainText()
+        self.ai_thread = AICaptionWorker(self.ai, input_text)
+        self.ai_thread.text_update.connect(self.ui.aiOutputBox.setPlainText)
+        self.ai_thread.start()
 
     def clear_ai_fields(self):
         """Clears the AI output and input fields."""
