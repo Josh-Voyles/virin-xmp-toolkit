@@ -191,13 +191,13 @@ class MainWindow(QMainWindow):
     def _display_empty_shot_seq_warning(self):
         """Displays a warning message if shot or sequence numbers are not provided."""
         message = "Please enter a shot and sequence number"
-        self._show_message_box("Number Error", "warning", message)
+        self._show_message_box("Number Error", message, "warning")
 
     def _display_empty_path_warning(self):
         """Displays a warning message if no file path is selected."""
         if not self.file_path:
             message = "Please choose a file path"
-            self._show_message_box("Path Error", "warning", message)
+            self._show_message_box("Path Error", message, "warning")
 
     def _get_file_format(self):
         """Retrieves the current file format based on the selected page."""
