@@ -12,7 +12,7 @@ This module tries the front end gui to backend for virin xmp toolkit.
 from PyQt6.QtWidgets import QFileDialog, QMainWindow, QMessageBox
 from PyQt6 import QtGui
 from PyQt6.QtGui import QRegularExpressionValidator
-from PyQt6.QtCore import QCoreApplication, QRegularExpression, QThread, pyqtSignal
+from PyQt6.QtCore import QRegularExpression, QThread, pyqtSignal
 from models.file_rename import FileRenamer
 from models.meta_edit import MetaTool
 from models.ai_backend import VIRINAI
@@ -28,6 +28,71 @@ EMPTY_STRING = ""
 DEFAULT_CREATOR = "USAF Band Production"
 DEFAULT_KEYWORD = "USAFBand"
 PUBLIC_DOMAIN_COPYRIGHT = "Public Domain"
+
+
+class FileRenameWorker(QThread):
+    """Worker thread for file rename operations"""
+
+    finished = pyqtSignal(str)
+
+    def __init__(
+        self,
+        renamer,
+        file_path=None,
+        ext=None,
+        date=None,
+        shot=None,
+        seq=None,
+        operation="rename",
+    ) -> None:
+        super().__init__()
+        self.fr = renamer
+        self.file_path = file_path
+        self.ext = ext
+        self.date = date
+        self.shot = shot
+        self.seq = seq
+        self.operation = operation
+
+    def run(self):
+        try:
+            if self.operation == "rename":
+                result = self.fr.rename_all_files(
+                    self.file_path, self.ext, self.date, self.shot, self.seq
+                )
+            else:  # undo
+                result = self.fr.undo_rename()
+            self.finished.emit(result)
+        except Exception as e:
+            self.finished.emit(f"Error: {str(e)}")
+
+
+class MetadataWorker(QThread):
+    """Worker thread for metadata operations"""
+
+    finished = pyqtSignal(dict)  # For load operations
+    message = pyqtSignal(str)  # For write operations
+
+    def __init__(self, meta_tool, file_path, file_format, operation, metadata=None):
+        super().__init__()
+        self.meta = meta_tool
+        self.file_path = file_path
+        self.file_format = file_format
+        self.operation = operation  # 'load' or 'write'
+        self.metadata = metadata
+
+    def run(self):
+        try:
+            if self.operation == "load":
+                result = self.meta.retreive_metadata(self.file_path, self.file_format)
+                self.finished.emit(result)
+            else:  # write
+                result = self.meta.write_metadata(
+                    self.file_path, self.file_format, self.metadata
+                )
+                self.message.emit(result)
+        except Exception as e:
+            self.message.emit(f"Error: {str(e)}")
 
 
 class AICaptionWorker(QThread):
@@ -82,6 +147,8 @@ class MainWindow(QMainWindow):
                 )
             )
         )
+        self.rename_thread = None
+        self.metadata_thread = None
 
         self._setup_validators()
         self._connect_buttons()
@@ -138,6 +205,18 @@ class MainWindow(QMainWindow):
             return self.ui.fileFormatComboBox.currentText()
         return self.ui.metaFileFormatComboBox.currentText()
 
+    def _update_metadata_fields(self, metadata):
+        """Updates UI with loaded metadata"""
+        self.ui.creatorEdit.setText(metadata["Creator"])
+        self.ui.writerEdit.setText(metadata["Writer"])
+        self.ui.descriptionEdit.setPlainText(metadata["Description"])
+        self.ui.titleEdit.setText(metadata["Title"])
+        self.ui.keywordEdit.setText(metadata["Keywords"])
+        self.ui.cityEdit.setText(metadata["City"])
+        self.ui.countryEdit.setText(metadata["Country"])
+        self.ui.stateEdit.setText(metadata["State"])
+        self.ui.copyrightEdit.setText(metadata["Copyright"])
+
     # Functions listed in priority top down
     def open_folder_chooser(self):
         """Opens a dialog to choose a folder and sets the selected folder path."""
@@ -172,11 +251,15 @@ class MainWindow(QMainWindow):
                 shot = int(self.ui.shotEdit.text())
                 seq = int(self.ui.seqEdit.text())
                 ext = self.ui.fileFormatComboBox.currentText()
-                self._show_message_box(
-                    "Notification",
-                    "information",
-                    self.fr.rename_all_files(self.file_path, ext, date, shot, seq),
+                self.rename_thread = FileRenameWorker(
+                    self.fr, self.file_path, ext, date, shot, seq
                 )
+                self.rename_thread.finished.connect(
+                    lambda msg: self._show_message_box(
+                        "Notification", msg, "notification"
+                    )
+                )
+                self.rename_thread.start()
             else:
                 self._display_empty_shot_seq_warning()
         else:
@@ -196,20 +279,22 @@ class MainWindow(QMainWindow):
 
     def undo_rename(self):
         """Undoes the last renaming operation."""
-        self._show_message_box("Notification", "information", self.fr.undo_rename())
+        self.rename_thread = FileRenameWorker(self.fr, operation="undo")
+        self.rename_thread.finished.connect(
+            lambda msg: self._show_message_box("Notification", msg, "information")
+        )
+        self.rename_thread.start()
 
     def load_metadata(self):
         """Loads existing metadata from the files in the selected path into the input fields."""
-        metadata = self.meta.retreive_metadata(self.file_path, self._get_file_format())
-        self.ui.creatorEdit.setText(metadata["Creator"])
-        self.ui.writerEdit.setText(metadata["Writer"])
-        self.ui.descriptionEdit.setPlainText(metadata["Description"])
-        self.ui.titleEdit.setText(metadata["Title"])
-        self.ui.keywordEdit.setText(metadata["Keywords"])
-        self.ui.cityEdit.setText(metadata["City"])
-        self.ui.countryEdit.setText(metadata["Country"])
-        self.ui.stateEdit.setText(metadata["State"])
-        self.ui.copyrightEdit.setText(metadata["Copyright"])
+        self.metadata_thread = MetadataWorker(
+            self.meta, self.file_path, self._get_file_format(), "load"
+        )
+        self.metadata_thread.finished.connect(self._update_metadata_fields)
+        self.metadata_thread.message.connect(
+            lambda msg: self._show_message_box("Notification", msg, "information")
+        )
+        self.metadata_thread.start()
 
     def clear_metadata_fields(self):
         """Clears all metadata input fields to their default values."""
@@ -244,11 +329,15 @@ class MainWindow(QMainWindow):
             "copyright": self.ui.copyrightEdit.text(),
             "rights": self.ui.copyrightEdit.text(),
         }
-        self._show_message_box(
-            "Notification",
-            "information",
-            self.meta.write_metadata(self.file_path, self._get_file_format(), metadata),
+        self.metadata_thread = MetadataWorker(
+            self.meta, self.file_path, self._get_file_format(), "write", metadata
         )
+        self.metadata_thread.message.connect(
+            lambda: self._show_message_box(
+                "Notification", "Metadata updated succussfully!", "notification"
+            )
+        )
+        self.metadata_thread.start()
 
     def prompt_ai(self):
         """
