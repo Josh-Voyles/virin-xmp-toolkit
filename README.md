@@ -12,9 +12,8 @@ However, the installer will install these dependencies and Homebrew if not alrea
 
 **WARNING:**
 
-This installer will install a folder on your desktop with an executable inside.
+This installer will install a folder on your desktop as a .app package.
 You may need to **right-click** on the executable and select **open** to get the app to launch.
-I could not get a .app bundle to work with the exiftool dependency using pyinstallar nor py2app.
 
 
 ***To install***: **Copy the text below into your _terminal_ application in macOS and press enter.**

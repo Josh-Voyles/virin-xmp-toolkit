@@ -19,7 +19,7 @@ from models.ai_backend import VIRINAI
 from views.main_window_ui import Ui_MainWindow
 import os
 
-SOFTWARE_VERSION = "0.3.0"
+SOFTWARE_VERSION = "0.3.1"
 APPLICATION_TITLE = "VIRIN XMP Toolkit"
 FILENAME_PAGE_INDEX = 0
 METADATA_PAGE_INDEX = 1
