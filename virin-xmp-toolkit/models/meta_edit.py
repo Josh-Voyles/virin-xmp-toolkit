@@ -34,6 +34,7 @@ class MetaTool:
             "State": "",
             "Copyright": "",
         }
+        self._exiftool_path = self._get_exiftool_path()
 
     def _load_files(self, path, selected_extension) -> list:
         """
@@ -55,6 +56,18 @@ class MetaTool:
         except FileNotFoundError:
             return []
 
+    # handles unix paths
+    def _get_exiftool_path(self) -> str:
+        """returns first possible path that exists for exiftool installation"""
+        possible_paths = [
+            "/opt/homebrew/bin/exiftool",
+            "/usr/local/bin/exiftool",
+        ]
+        for path in possible_paths:
+            if os.path.exists(path):
+                return path
+        return "exiftool"
+
     def write_metadata(self, path, selected_extension, metadata: dict) -> str:
         """
 
@@ -71,9 +84,8 @@ class MetaTool:
         Raises:
             FileNotFoundError: If the specified directory path does not exist.
         """
-        files = self._load_files(path, selected_extension)
-        if files:
-            with ExifToolHelper() as et:
+        if files := self._load_files(path, selected_extension):
+            with ExifToolHelper(executable=self._exiftool_path) as et:
                 et.set_tags(files, tags=metadata, params=["-P", "-overwrite_original"])
                 et.terminate()
             return "Metadata updated sucessfully!"
@@ -92,11 +104,9 @@ class MetaTool:
             A dictionary containing metadata information.
             Default empty values are returned for each key if nothing found.
         """
-
-        files = self._load_files(path, selected_extension)
-        # in the function, we will just display meta of first file since batch processing
-        if files:
-            with ExifToolHelper() as et:
+        # executable="/opt/homebrew/bin/exiftool"
+        if files := self._load_files(path, selected_extension):
+            with ExifToolHelper(executable=self._exiftool_path) as et:
                 tags = et.get_tags(files[0], tags=list(self.meta_fields.keys()))
                 for key, value in tags[0].items():
                     key = key.split(":")
