@@ -31,7 +31,7 @@ ollama pull llama3.1
 # Function to download and install the latest GitHub release
 install_github_release() {
   local repo=$1
-  local download_url=https://github.com/${repo}/releases/download/v0.3.0-beta/virin-xmp-toolkit.zip
+  local download_url=https://github.com/${repo}/releases/download/v0.3.1-beta/virin-xmp-toolkit.zip
   local old_folder=/Users/$USER/Desktop/virin-xmp-toolkit.app
   local new_location=/Users/$USER/Desktop/
   if [ -d ${old_folder} ]; then
