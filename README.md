@@ -17,9 +17,21 @@ You may need to **right-click** on the executable and select **open** to get the
 
 
 ***To install***: **Copy the text below into your _terminal_ application in macOS and press enter.**
+You may be asked for your user password.
 ```bash
-curl -sSL https://raw.githubusercontent.com/josh-voyles/virin-xmp-toolkit/main/install.sh | bash
+sudo curl -sSL https://raw.githubusercontent.com/josh-voyles/virin-xmp-toolkit/main/install.sh | bash
 ```
+
+***PATH WARNING***: **You will likely need to add 'brew' to your 'path' and will be greated with a warning**
+Copy and paste that text into your terminal or copy/paste the code below and hit enter.
+```bash
+# macOS only
+echo >> /Users/$USER/.zprofile
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$USER/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+sudo curl -sSL https://raw.githubusercontent.com/josh-voyles/virin-xmp-toolkit/main/install.sh | bash
+```
+
 
 ## Uninstall
 
