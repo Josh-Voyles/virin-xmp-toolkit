@@ -15,23 +15,12 @@ However, the installer will install these dependencies and Homebrew if not alrea
 This installer will install a folder on your desktop as a .app package.
 You may need to **right-click** on the executable and select **open** to get the app to launch.
 
-
-***To install***: **Copy the text below into your _terminal_ application in macOS and press enter.**
+***To install***: **Copy the text below into your *terminal* application in macOS and press enter.**
 You may be asked for your user password.
+
 ```bash
 sudo curl -sSL https://raw.githubusercontent.com/josh-voyles/virin-xmp-toolkit/main/install.sh | bash
 ```
-
-***PATH WARNING***: **You will likely need to add 'brew' to your 'path' and will be greated with a warning**
-Copy and paste that text into your terminal or copy/paste the code below and hit enter.
-```bash
-# macOS only
-echo >> /Users/$USER/.zprofile
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$USER/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
-sudo curl -sSL https://raw.githubusercontent.com/josh-voyles/virin-xmp-toolkit/main/install.sh | bash
-```
-
 
 ## Uninstall
 
@@ -67,8 +56,8 @@ A common mistake will be to not select the correct file format.
 - (Shot#) Select the shoot or camera
 - (Seq#) Starting sequence number. Normally you will choose 1.
 
-
 ## Metadata
+
 <img width="893" alt="xmp-toolkit-meta" src="https://github.com/user-attachments/assets/0dda94c9-1834-40c6-bc5f-91fa53f7c11f">
 
 - (Folder) Select the parent directory of the files you want to batch process.
@@ -84,8 +73,8 @@ A common mistake will be to not select the correct file format.
 - (Clear) Clear all fields and creates defaults for Creator, Keywords, and Copyright.
 - (Write) Writes metadata to all files with chosen format based on input fields.
 
-
 ## AI caption
+
 <img width="893" alt="xmp-toolkit-ai" src="https://github.com/user-attachments/assets/cdb47bcd-c6b0-41e3-aba8-84c96116a36a">
 
 - (Left Box) Write a description of your video shoot or photo shoot. Provide many details.
@@ -94,4 +83,5 @@ A common mistake will be to not select the correct file format.
 - (Submit) Sends your prompt to Ollama
 
 ## Quit
+
 - Quits application.
