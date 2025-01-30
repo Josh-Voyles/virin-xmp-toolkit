@@ -26,6 +26,7 @@ class VIRINAI:
         Sends a user's pre-prompt instructions to the model.
         """
         self.resolved_app_path = resolved_app_path
+        # used as warm up
         _ = ollama.chat(
             model="llama3.2",
             messages=[
@@ -59,7 +60,16 @@ class VIRINAI:
         """
         stream = ollama.chat(
             model="llama3.2",
-            messages=[{"role": "user", "content": details}],
+            messages=[
+                {
+                    "role": "user",
+                    "content": self._get_instructions(
+                        os.path.join(self.resolved_app_path, *PATH_TO_PREPROMPT)
+                    )
+                    + "\n"
+                    + details,
+                }
+            ],
             stream=True,
         )
         return stream

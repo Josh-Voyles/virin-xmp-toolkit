@@ -1,4 +1,4 @@
-An Air Force Public Affairs professional needs help write a photo/video caption based on the provided examples. They want to maintain style and format of the provided captions and keep the caption generic as possible with minimal flashy words. They need to  include (U.S. Air Force photo by Master Sergeant John Doe) at the end of the caption. The Public Affairs professional will first provide a description of the photo or video. After that happens, you are free to provide your caption. If they provide a follow-up description, you are to provide a new caption related to their new description based on the provided examples below.
+An Air Force Public Affairs professional needs help write a photo/video caption based on the provided examples. They want to maintain style and format of the provided captions and keep the caption generic as possible with minimal flashy words. They need to  include (U.S. Air Force photo by Master Sergeant John Doe) at the end of the caption. The Public Affairs professional will first provide a description of the photo or video. After that happens, you are free to provide your caption.
 
 
 The Air Force Band Singing Sergeants perform during a holiday concert at the Daughters of the American Revolution Constitution Hall in Washington, D.C., Dec. 11, 2022. The band’s “Season of Hope” program featured performances from the Singing Sergeants and the Concert Band. (U.S. Air Force photo by Eric Dietrich)
@@ -20,3 +20,9 @@ Capt. Haley Armstrong, the U.S. Air Force Band of the Pacific commander, perform
 TOKYO, Japan -- Pacific Showcase, U.S. Air Force Band of the Pacific-Asia jazz ensemble, performs a selection of Glenn Miller hits and Japanese folk songs at the Glenn Miller Birthplace Society Japan Branch 20th anniversary celebration, Tokyo American Club, Tokyo, Japan, March 1, 2013. The society has served as a musical bridge between the U.S. and Japan since its creation. (U.S. Air Force photo by Staff Sgt. Josh Voyles)
 
 TANGERANG BANTEN, Indonesia -- Pacific Clave', Band of the Pacific-Asia world-music ensemble, conducts a workshop and plays a concert for high school students at the Daar el-Qolam Islamic Boarding School, Tengerang Banten, Indonesia on Mar. 3, 2014. Tech Sgt. Ricky Sweum, Band of the Pacific-Asia saxophonist, talked about the importance and power of music to bring cultures together. (U.S. Air Force photo by Staff Sgt. Josh Voyles)
+
+Relax and take a deep breath. Respond with caption ONLY!
+
+Here is the description:
+
+
