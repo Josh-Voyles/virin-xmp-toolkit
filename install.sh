@@ -16,6 +16,13 @@ else
   echo "Found Homebrew. Using Homebrew."
 fi
 
+# Check if brew is in the PATH
+if ! command -v brew &>/dev/null; then
+  # If not found, add Homebrew to PATH
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>~/.zprofile
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # Install exiftool
 echo "Installing exiftool..."
 brew install exiftool
@@ -26,12 +33,12 @@ brew install --cask ollama
 
 # Download and install the Llama 3.18b model
 echo "Downloading Llama 3.18b model..."
-ollama pull llama3.1
+ollama pull llama3.2
 
 # Function to download and install the latest GitHub release
 install_github_release() {
   local repo=$1
-  local download_url=https://github.com/${repo}/releases/download/v0.3.1-beta/virin-xmp-toolkit.zip
+  local download_url=https://github.com/${repo}/releases/latest/download/virin-xmp-toolkit.zip
   local old_folder=/Users/$USER/Desktop/virin-xmp-toolkit.app
   local new_location=/Users/$USER/Desktop/
   if [ -d ${old_folder} ]; then
